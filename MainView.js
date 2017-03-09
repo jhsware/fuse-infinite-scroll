@@ -35,6 +35,10 @@ function addItems (startAt, endAt, addToTop) {
     }
 }
 addItems(start, end)
+setTimeout(function () {
+    // add some to the top to allow scroll trigger to activate
+    exports.doLoadBefore()
+}, 500)
 
 exports.doLoadAfter = function () {
     addItems(end + 1, end + 3)
