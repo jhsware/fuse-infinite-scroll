@@ -1,0 +1,55 @@
+<App>
+
+    <JavaScript File="MainView.js" />
+
+    <StackPanel ux:Class="Section" ux:Name="SectionContent" Color="#aaa" ItemSpacing="{Read listRowSpacing}">
+
+        <string ux:Property="title" />
+        <object ux:Property="rows" />
+
+        <Panel ux:Name="SectionHeader" Color="#fff" ZOffset="10">
+            <Deferred>
+                <Text Color="#555" FontSize="20" Value="{Read title}" Alignment="CenterLeft" Margin="10,5,10,0" />
+            </Deferred>
+
+            <Rectangle Width="100%" Height="100%" Color="#EEE" Opacity="0.85" />
+        </Panel>
+
+        <StackPanel ux:Name="SectionRows" Color="#aaa" ItemSpacing="{Read listRowSpacing}">
+            <Each Items="{Read rows}">
+                <Panel Color="#ddd" ZOffset="1" Height="{Read height}">
+                    <Text Color="#000" FontSize="20" Value="{Read title}" Alignment="CenterLeft" Margin="10,5,10,0" />
+                </Panel>
+            </Each>
+        </StackPanel>
+
+        <ScrollingAnimation From="y(SectionContent)" To="y(SectionContent) + height(SectionRows)">
+            <Move Y="1" RelativeTo="Size" RelativeNode="SectionRows" Target="SectionHeader" />
+        </ScrollingAnimation>
+    </StackPanel>
+
+    <ScrollView ux:Name="view" LayoutMode="PreserveVisual">
+
+        <ScrollViewMotion GotoDuration="1" GotoType="Elastic" />
+
+        <Scrolled To="End" Within="200" RelativeTo="Pixels" ux:Name="atEnd">
+            <Callback Handler="{doLoadAfter}" />
+        </Scrolled>
+        <Scrolled To="Start" Within="150" RelativeTo="Pixels" ux:Name="atStart">
+            <Callback Handler="{doLoadBefore}" />
+        </Scrolled>
+
+        <StackPanel Color="#aaa" ItemSpacing="{Read listRowSpacing}">
+        
+            <Each Items="{Read listData}">
+
+                <Section title="{Read title}" rows="{Read rows}" />
+
+            </Each>
+
+        </StackPanel>
+
+    </ScrollView>
+
+
+</App>
