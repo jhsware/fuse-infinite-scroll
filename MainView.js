@@ -34,11 +34,15 @@ function addItems (startAt, endAt, addToTop) {
         end = endAt
     }
 }
+// Load initial rows
 addItems(start, end)
+// Add some to the top to allow scrolling up and activating
+// the doLoadBefore trigger
+// BUG: When adding more items here the LayoutMode="PreserveVisual" appears not
+// to work properly. The ScrollView moves the scroll position.
 setTimeout(function () {
-    // add some to the top to allow scroll trigger to activate
     exports.doLoadBefore()
-}, 500)
+}, 2000)
 
 exports.doLoadAfter = function () {
     addItems(end + 1, end + 3)
